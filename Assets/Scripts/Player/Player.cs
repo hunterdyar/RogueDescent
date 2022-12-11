@@ -21,6 +21,8 @@ namespace RogueDescent
 		public Stats Stats => _activeStats;
 
 		private Stats _activeStats;
+		
+		//todo: make observable lists
 		//Track current abilities
 		[SerializeField] private Ability[] Abilities;
 		

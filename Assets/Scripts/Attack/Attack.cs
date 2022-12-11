@@ -4,6 +4,7 @@ namespace RogueDescent.Attack
 {
 	public class Attack
 	{
+		//todo: some attacks can or cannot be critical.
 		public AttackState State;
 		public float damage;
 		public Collider2D attackArea;

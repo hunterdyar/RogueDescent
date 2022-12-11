@@ -7,6 +7,7 @@ namespace RogueDescent.Traps
 	public class StatusTrap : MonoBehaviour
 	{
 		[SerializeField] private Status.Status _trapStatus;
+		[SerializeField] private bool _removeStatusOnExit;
 		private Status.Status _activeStatus;
 		private void OnTriggerEnter2D(Collider2D other)
 		{
@@ -21,15 +22,18 @@ namespace RogueDescent.Traps
 
 		private void OnTriggerExit2D(Collider2D other)
 		{
-			var player = other.GetComponentInParent<Player>();
-			if (player != null)
+			if (_removeStatusOnExit)
 			{
-				if (_activeStatus != null)
+				var player = other.GetComponentInParent<Player>();
+				if (player != null)
 				{
-					player.RemoveStatus(_activeStatus);
-					_activeStatus = null;
+					if (_activeStatus != null)
+					{
+						player.RemoveStatus(_activeStatus);
+						_activeStatus = null;
+					}
+
 				}
-				
 			}
 		}
 	}

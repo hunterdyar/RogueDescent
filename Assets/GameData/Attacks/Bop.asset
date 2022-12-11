@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecde28c33d8b4490944679f0d14665c3, type: 3}
+  m_Name: Bop
+  m_EditorClassIdentifier: 
+  baseCooldown: 1
+  _attackSystem: {fileID: 11400000, guid: 2e7f2a9253498264cb868dd77cd76fb5, type: 2}
+  baseDamage: 1
+  _attackAreaPrefab: {fileID: 1852831092854054894, guid: f58d3fa73dcc01f459ade6f773079254, type: 3}

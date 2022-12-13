@@ -1,4 +1,5 @@
 ﻿using System;
+using RogueDescent.Status;
 using UnityEngine;
 
 namespace RogueDescent.Traps
@@ -11,12 +12,17 @@ namespace RogueDescent.Traps
 		private Status.Status _activeStatus;
 		private void OnTriggerEnter2D(Collider2D other)
 		{
-			var player = other.GetComponentInParent<Player>();
-			if (player != null)
+			//Todo: Change to "IAffectedByStatus" or such interface.
+			var target = other.GetComponentInParent<IAffectedByStatus>();
+			if (target != null)
 			{
 				//clone status and add it.
-				_activeStatus = Instantiate(_trapStatus);
-				player.AddStatus(_activeStatus);
+				if(_activeStatus == null)
+				{
+					_activeStatus = Instantiate(_trapStatus);
+				}
+				
+				target.AddStatus(_activeStatus, true);
 			}
 		}
 
@@ -24,12 +30,12 @@ namespace RogueDescent.Traps
 		{
 			if (_removeStatusOnExit)
 			{
-				var player = other.GetComponentInParent<Player>();
-				if (player != null)
+				var target = other.GetComponentInParent<IAffectedByStatus>();
+				if (target != null)
 				{
 					if (_activeStatus != null)
 					{
-						player.RemoveStatus(_activeStatus);
+						target.RemoveStatus(_activeStatus);
 						_activeStatus = null;
 					}
 

@@ -7,6 +7,8 @@ namespace RogueDescent.Attack
 	//Generic health class.
 	public class Health : MonoBehaviour, IAttackable
 	{
+		public Action<Impact> OnHitTaken { get; set; }
+
 		[SerializeField] private float maxHealth;
 		private IAttacker _attacker;
 		private void Awake()
@@ -24,16 +26,16 @@ namespace RogueDescent.Attack
 			_attacker = attacker;
 		}
 
+
 		public void TakeHit(Impact impact)
 		{
 			maxHealth -= impact.RealDamage;
+			OnHitTaken?.Invoke(impact);
 			//flash animation
 			if (maxHealth <= 0)
 			{
 				Destroy(gameObject);
 			}
 		}
-	
-		
 	}
 }

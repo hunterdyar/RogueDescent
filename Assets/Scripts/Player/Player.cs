@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using RogueDescent.Abilities;
 using RogueDescent.Attack;
 using RogueDescent.Status;
@@ -11,7 +12,7 @@ namespace RogueDescent
 	/// <summary>
 	/// Base player class that tracks stats/abilities/state and provides references to constant player-components (like movement, health, inventory)`
 	/// </summary>
-	public class Player : MonoBehaviour, IAttacker
+	public class Player : MonoBehaviour, IAttacker, IAffectedByStatus
 	{
 		public PlayerMovement PlayerMovement => _playerMovement;
 		private PlayerMovement _playerMovement;
@@ -92,11 +93,26 @@ namespace RogueDescent
 			}
 		}
 
-		public void AddStatus(Status.Status status)
+		public void AddStatus(Status.Status status, bool preventDuplicates = true)
 		{
+			if (preventDuplicates)
+			{
+				//This doesn't work, because we might have x "slow" statuses, and a 5% slow and 10% slow are different. We want unique scriptableObject assets, but we cant use instances because of cloning.
+				//I thought this error was interesting.
+				// var statusType = status.GetType();
+				// if (_statuses.Any(x => x.GetType() == statusType))
+				// {
+				// 	return;
+				// }
+
+				if (_statuses.Any(x => x.name == status.name))
+				{
+					return;
+				}
+			}
 			_statuses.Add(status);
 		}
-
+		
 		public void RemoveStatus(Status.Status status)
 		{
 			_statuses.Remove(status);

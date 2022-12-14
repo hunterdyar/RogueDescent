@@ -1,5 +1,4 @@
-﻿using System;
-using RogueDescent.Animation;
+﻿using RogueDescent.Animation;
 using RogueDescent.Attack;
 using UnityEngine;
 
@@ -13,6 +12,7 @@ namespace RogueDescent.Feedbacks
 		private IAttackable _attackable;
 		private SpriteRenderer _spriteRenderer;
 		[Tooltip("In seconds. Use 0 for a single frame.")]
+		//todo: Add repeat flashing option, but actually make it a "Procedural Sprite Animation" struct and custom property drawer, maybe.
 		[SerializeField] private float flashTime;
 		[SerializeField] private Color flashColor;
 		private void Awake()
@@ -20,7 +20,7 @@ namespace RogueDescent.Feedbacks
 			_attackable = GetComponentInParent<IAttackable>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 		}
-
+		
 		private void OnEnable()
 		{
 			_attackable.OnHitTaken += OnHitTaken;
@@ -36,5 +36,27 @@ namespace RogueDescent.Feedbacks
 			_spriteRenderer.Flash(this,flashColor,flashTime);
 		}
 
+		#region Editor Validation
+		
+		private void OnValidate()
+		{
+			_spriteRenderer = GetComponent<SpriteRenderer>();
+#if UNITY_EDITOR
+
+			if (!_spriteRenderer.sharedMaterial.HasProperty(SRProcAnim.ColorProp))
+			{
+				Debug.LogWarning("Sprite Renderer Needs Rogue Character material in order for sprite flashing to work! No Color Prop", this);
+			}
+
+			if (!_spriteRenderer.sharedMaterial.HasProperty(SRProcAnim.IgnoreTexture))
+			{
+				Debug.LogWarning("Sprite Renderer Needs Rogue Character material in order for sprite flashing to work! No 'Ignore Texture' Prop", this);
+			}
+
+#endif
+
+		}
+
+		#endregion
 	}
 }

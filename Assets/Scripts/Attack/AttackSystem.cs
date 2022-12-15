@@ -28,7 +28,13 @@ namespace RogueDescent.Attack
 					{
 						if (victim.GetMyAttacker() != attack.Attacker)
 						{
-							var impact = new Impact(attack, victim, _hits[i].transform.position, CalculateDamage(attack, victim));
+							//halfway between attacker (collider) and position (collider)
+							//really we would want the collision point, but colliders are overlap flashes - check overlaps, so no collision point.
+							//maybe get nearest point on attack shape perimeter?
+							//maybe pass "impact position" get off to the attack to overridable attack code, some set of "by them, by me, at center".
+							
+							Vector3 position = Vector3.Lerp(_hits[i].transform.position, attack.Attacker.GetTransform().position, 0.2f);
+							var impact = new Impact(attack, victim, position, CalculateDamage(attack, victim));
 							victim.TakeHit(impact);
 							//fire impact event (UI system listens to this)
 							OnImpact?.Invoke(impact);

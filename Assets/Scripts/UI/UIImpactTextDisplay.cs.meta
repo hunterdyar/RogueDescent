@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: b95ceba319364f04aa09d6a2e702cc9b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _attackSystem: {fileID: 11400000, guid: 2e7f2a9253498264cb868dd77cd76fb5, type: 2}
+  - _UIImpactTextPool: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

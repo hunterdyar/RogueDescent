@@ -6,7 +6,8 @@ namespace RogueDescent.Feedbacks
 {
 	public class FlashSpriteOnHit : MonoBehaviour
 	{
-		//im not sure this is how I want to do feedbacks system.
+		//im not sure this is how I want to do a feedback system (individual event subscriptions).
+		//I think I would prefer, or perhaps ALSO have, an event bus of some kind.
 		//but for now, single monobehaviours will work.
 
 		private IAttackable _attackable;
